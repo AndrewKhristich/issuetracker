@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="coms">
+    <br/>
+    <div>comments : </div>
+    <div style="width: 400px" th:each="com : ${comments}">
+        <div style="border : 1px solid; margin-top: 5px">
+            <label th:text="'User : ' + ${com.userName}"></label>
+            <label style="float: right" th:text="'Date : ' + ${com.date}"></label> <br/>
+            <label style="font-weight: bold" th:text="${com.commentDescription}"></label>
+            <!--<br/>-->
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+DROP TABLE user IF EXISTS;
+
+CREATE TABLE user(
+  name varchar not null primary key,
+  password varchar(50) not null );
+
+INSERT INTO USER(NAME, PASSWORD) VALUES ('First', 'password');
+INSERT INTO USER(NAME, PASSWORD) VALUES ('Second', 'password');
+
+DROP TABLE article IF EXISTS;
+
+CREATE TABLE article(
+  id bigint primary key auto_increment,
+  article_name varchar(50) not null,
+  description varchar(255),
+  status varchar not null,
+  author varchar not null,
+  date TIMESTAMP not null,
+  CONSTRAINT FK_Author foreign key (author)
+  references user(name)
+);
+
+INSERT INTO ARTICLE(id, article_name, description, status, author, date) VALUES (1, 'first article', 'this is FIRST article', 'Created', 'Second', NOW());
+INSERT INTO ARTICLE(id, article_name, description, status, author, date) VALUES (2, 'second article', 'this is SECOND article', 'Closed', 'Second', NOW());
+INSERT INTO ARTICLE(id, article_name, description, status, author, date) VALUES (3, 'third article', 'this is THIRD article', 'Resolved', 'First', NOW());
+
+DROP TABLE comment IF EXISTS;
+
+CREATE TABLE comment(
+  id integer primary key auto_increment,
+  username varchar not null,
+  article_id varchar(50) not null,
+  comment_description varchar not null,
+  published_date TIMESTAMP not null,
+  status varchar,
+
+  CONSTRAINT FK_UserName foreign key (username)
+  references user(name),
+  CONSTRAINT FK_ArticleId foreign key (article_id)
+  references article(id)
+);
+
+INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 1, 'I have no solution', NOW());
+INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 2, 'I have an idea', NOW());
+INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 2, 'I have another an idea', NOW());
+INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('Second', 3, 'Try this', NOW());

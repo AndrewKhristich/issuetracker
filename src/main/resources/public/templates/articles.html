@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a href="/logout">Logout</a> <label style="color: white"></label>
+    <a href="/registration">Registration</a>
+</div>
+<h1>Issue Tracker</h1>
+<input id="search-input" placeholder="Enter key word of issue to search">
+<button type="button" id="search-button" onclick="searchFunction()">Search</button>
+<a href="/articles">
+    <button>Reset Filters</button>
+</a>
+<br/>
+<br/>
+<div id="my-issue-button">
+    <button onclick="getMyIssues()">Show My Issues</button>
+</div>
+
+<br/>
+<div th:each="article : ${articleList}">
+    <a th:href="@{'articles/art?id=' + ${article.id}}" th:text="${article.articleName}"></a>
+    <label th:text="${article.status}"/>
+    <label th:text="${article.date}"/><br/>
+</div>
+<br/>
+<a href="/articles/new">
+    <button>Add Article</button>
+</a>
+</body>
+
+<script>
+    function searchFunction() {
+        var search = $("#search-input").val();
+        if (search === "") {
+            alert("Enter search key word")
+        } else window.location.replace("/articles?search=" + search);
+    }
+</script>
+<script>
+    function getMyIssues() {
+        window.location.replace("/articles?my=true");
+    }
+</script>
+</html>

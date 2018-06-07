@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/src/create-comment.js"></script>
+    <script>
+        $(function () {
+            $("#comment-list").load("/articles/comment?article=" + getUrlParameter("id"));
+        });
+        function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+    </script>
+
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a href="/logout">Logout</a> <label style="color: white"></label>
+    <a href="/registration">Registration</a>
+</div>
+<div>
+    <label> Status : </label><label th:text="${article.status}"/> <br/>
+    <label>Start Date : </label><label th:text="${article.date}"/> <br/>
+    <label> Author : </label><label th:text="${article.username}"/> <br/>
+    <label> Description </label> <br>
+    <label style="font-weight: bold" th:text="${article.description}"/>
+</div>
+<div id="comment-list"></div>
+<br/>
+<br/>
+<form id="comment-form" style="border: 1px solid; width: 400px">
+    <select  id="selection">
+        <option value="Resolved">Resolved</option>
+        <option selected value="Empty">---</option>
+    </select > <br/>
+    <label id="current-user" th:text="${user}"/>
+    <br/>
+
+    <textarea style="width: 394px; resize: none" id="commentDescription"></textarea>
+    <br/>
+    <button type="submit">Comment</button>
+</form>
+</body>
+</html>

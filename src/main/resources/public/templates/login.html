@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta />
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/src/login-script.js"></script>
+    <script>$(document).ready(function () {
+        $("#log-form").submit(function(event){
+            doPost(event, "/login");
+        });
+    })
+    </script>
+</head>
+<body>
+<form id="log-form">
+    <input id="username" placeholder="User Name"/>
+    <input id="password" placeholder="User Pass" type="password"/>
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>

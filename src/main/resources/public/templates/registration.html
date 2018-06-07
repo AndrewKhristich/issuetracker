@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/src/login-script.js"></script>
+    <script>$(document).ready(function () {
+        $("#registration-form").submit(function(event){
+            doPost(event, "/registration/save");
+        });
+    })
+    </script>
+</head>
+<body>
+<div><strong>Registration</strong></div>
+<form id="registration-form">
+    <input id="username" placeholder="User Name"/>
+    <input id="password" placeholder="User Pass" type="password"/>
+    <button type="submit">Registration</button>
+</form>
+</body>
+</html>
