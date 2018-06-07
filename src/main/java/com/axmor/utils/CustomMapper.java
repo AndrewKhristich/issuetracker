@@ -8,9 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-
+/**
+ * Custom mapper from ResultSet to model class
+ */
 public class CustomMapper {
 
+    /**
+     * @param set ResultSet
+     * @return Article object
+     */
     public static Article mapArticleFromResultSet(ResultSet set) throws SQLException {
         Article article = new Article();
         article.setId(set.getLong("id"));
@@ -22,6 +28,10 @@ public class CustomMapper {
         return article;
     }
 
+    /**
+     * @param set ResultSet
+     * @return User object
+     */
     public static User mapUserFromResultSet(ResultSet set) throws SQLException {
         User user = new User();
         user.setName(set.getString("name"));
@@ -29,6 +39,10 @@ public class CustomMapper {
         return user;
     }
 
+    /**
+     * @param set ResultSet
+     *  @return Comment object
+     */
     public static Comment mapCommentFromResultSet(ResultSet set) throws SQLException {
         Comment comment = new Comment();
         comment.setId(set.getLong("id"));
