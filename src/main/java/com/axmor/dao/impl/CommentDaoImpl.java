@@ -29,6 +29,7 @@ public class CommentDaoImpl implements CommentDao {
                 comments.add(mapCommentFromResultSet(resultSet));
             }
         } catch (SQLException e) {
+            LOG.error("FINDING ALL COMMENTS FAIL" ,e);
         }
         return comments;
     }
@@ -51,6 +52,7 @@ public class CommentDaoImpl implements CommentDao {
              PreparedStatement statementForComment = connection.prepareStatement(commentQuery)) {
             statementForComment.executeUpdate();
         } catch (SQLException e) {
+            LOG.error("SAVING COMMENT FAIL" ,e);
         }
     }
 
@@ -60,6 +62,7 @@ public class CommentDaoImpl implements CommentDao {
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
         } catch (SQLException e) {
+            LOG.error("FINDING COMMENT FAIL" ,e);
         }
     }
 }

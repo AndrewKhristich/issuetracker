@@ -8,6 +8,7 @@ import com.axmor.dao.impl.IssueDaoImpl;
 import com.axmor.dao.impl.CommentDaoImpl;
 import com.axmor.dao.impl.UserDaoImpl;
 import com.axmor.exception.IssueNotFoundException;
+import com.axmor.exception.LargeValueException;
 import com.axmor.exception.UserAlreadyExistException;
 import com.axmor.exception.UserNotFoundException;
 import com.axmor.service.impl.IssueServiceImpl;
@@ -23,9 +24,8 @@ import static spark.Spark.*;
  * Application entry point
  */
 public class Main {
-//    public static final DataSource dataBaseUtil = DataSource.getConnection();
+
     public static final ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
-    public static final Logger logger = Logger.getGlobal();
     public static UserController userController;
     public static IssueController controller;
     public static CommentController commentController;
@@ -55,17 +55,17 @@ public class Main {
 
         Spark.get(Path.Web.ISSUES,                    controller.getAllIssues);
         Spark.get(Path.Web.ONE_ISSUE,                 controller.getIssue);
-        Spark.get(Path.Web.COMMENTS,                    commentController.getAllCommentsByIssue);
-        Spark.get(Path.Web.LOGOUT,                      userController.logout);
-        Spark.get(Path.Web.LOGIN,                       userController.loginPage);
-        Spark.get(Path.Web.REGISTRATION,                userController.registrationPage);
-        Spark.get(Path.Web.NEW_ISSUE,                   controller.newIssuePage);
-        Spark.get(Path.Web.INDEX,                       webController.welcome);
+        Spark.get(Path.Web.COMMENTS,                  commentController.getAllCommentsByIssue);
+        Spark.get(Path.Web.LOGOUT,                    userController.logout);
+        Spark.get(Path.Web.LOGIN,                     userController.loginPage);
+        Spark.get(Path.Web.REGISTRATION,              userController.registrationPage);
+        Spark.get(Path.Web.NEW_ISSUE,                 controller.newIssuePage);
+        Spark.get(Path.Web.INDEX,                     webController.welcome);
 
-        Spark.post(Path.Web.REGISTRATION_SAVE,          userController.saveUser);
-        Spark.post(Path.Web.LOGIN,                      userController.userAuth);
-        Spark.post(Path.Web.COMMENTS,                   commentController.saveComment);
-        Spark.post(Path.Web.NEW_ISSUE,                  controller::createIssue);
+        Spark.post(Path.Web.REGISTRATION_SAVE,        userController.saveUser);
+        Spark.post(Path.Web.LOGIN,                    userController.userAuth);
+        Spark.post(Path.Web.COMMENTS,                 commentController.saveComment);
+        Spark.post(Path.Web.NEW_ISSUE,                controller::createIssue);
 
         Spark.exception(UserNotFoundException.class, (exception, request, response) -> {
             response.status(400);
@@ -76,6 +76,10 @@ public class Main {
             response.body(exception.getMessage());
         });
         Spark.exception(IssueNotFoundException.class, (exception, request, response) -> {
+            response.status(400);
+            response.body(exception.getMessage());
+
+        });Spark.exception(LargeValueException.class, (exception, request, response) -> {
             response.status(400);
             response.body(exception.getMessage());
         });

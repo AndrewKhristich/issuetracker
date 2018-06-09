@@ -27,6 +27,7 @@ public class UserDaoImpl implements UserDao {
                 users.add(mapUserFromResultSet(resultSet));
             }
         } catch (SQLException e) {
+            LOG.error("FINDING USER FAIL" ,e);
         }
         if (users.size()>0){
             return users.get(0);
@@ -41,6 +42,7 @@ public class UserDaoImpl implements UserDao {
              PreparedStatement statement = connection.prepareStatement(query)){
             statement.executeUpdate();
         } catch (SQLException e) {
+            LOG.error("SAVING USER FAIL" ,e);
         }
     }
 }

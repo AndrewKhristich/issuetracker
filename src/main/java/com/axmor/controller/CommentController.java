@@ -2,6 +2,7 @@ package com.axmor.controller;
 
 import com.axmor.Main;
 import com.axmor.dao.CommentDao;
+import com.axmor.exception.LargeValueException;
 import com.axmor.model.Comment;
 import com.axmor.utils.Path;
 import com.google.gson.Gson;
@@ -24,6 +25,7 @@ public class CommentController {
         Main.userController.checkUser(request, response);
         Gson gson = new Gson();
         Comment comment = gson.fromJson(request.body(), Comment.class);
+        if (comment.getCommentDescription().length()>100) throw new LargeValueException("Comment length is too big");
         commentDao.saveComment(comment);
         return "ok";
     };

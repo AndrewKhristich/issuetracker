@@ -30,6 +30,7 @@ public class IssueDaoImpl implements IssueDao {
                 issues.add(mapIssueFromResultSet(resultSet));
             }
         } catch (SQLException e) {
+            LOG.error("FINDING ALL ISSUES FAIL" ,e);
         }
         return issues;
     }
@@ -45,6 +46,7 @@ public class IssueDaoImpl implements IssueDao {
                 issues.add(mapIssueFromResultSet(resultSet));
             }
         } catch (SQLException e) {
+            LOG.error("FINDING USER ISSUES FAIL" ,e);
         }
         return issues;
     }
@@ -60,6 +62,7 @@ public class IssueDaoImpl implements IssueDao {
                 issues.add(mapIssueFromResultSet(resultSet));
             }
         } catch (SQLException e) {
+            LOG.error("FINDING ISSUE BY NAME FAIL" ,e);
         }
         return issues;
     }
@@ -75,6 +78,7 @@ public class IssueDaoImpl implements IssueDao {
                 issues.add(mapIssueFromResultSet(resultSet));
             }
         } catch (SQLException e) {
+            LOG.error("FINDING ISSUE BY ID FAIL" ,e);
         }
         if (issues.size() > 0)
             return issues.get(0);
@@ -89,6 +93,7 @@ public class IssueDaoImpl implements IssueDao {
         try (Connection connection = DataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
         } catch (SQLException e) {
+            LOG.error("SAVING ISSUE FAIL" ,e);
         }
     }
 }

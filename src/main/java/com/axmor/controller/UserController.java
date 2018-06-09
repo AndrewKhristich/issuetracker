@@ -29,7 +29,13 @@ public class UserController {
     }
 
     public Route loginPage = (request, response) -> {
+        String logged = request.session().attribute("logged");
+        if (logged==null)
         return Main.engine.render(new ModelAndView(new HashMap<>(), Path.Templates.LOGIN_PAGE));
+        else {
+            response.redirect(Path.Web.ISSUES);
+            return null;
+        }
     };
 
     public Route logout = (request, response) -> {

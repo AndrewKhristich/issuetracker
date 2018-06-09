@@ -1,6 +1,7 @@
 package com.axmor.controller;
 
 import com.axmor.Main;
+import com.axmor.exception.LargeValueException;
 import com.axmor.model.Issue;
 import com.axmor.service.IssueService;
 import com.axmor.utils.Path;
@@ -25,6 +26,9 @@ public class IssueController {
     public String createIssue(Request request, Response response) {
         Gson gson = new Gson();
         Issue issue = gson.fromJson(request.body(), Issue.class);
+        if (issue.getDescription().length()>255 ||
+                issue.getIssueName().length()>50)
+            throw new LargeValueException("Too many letters in description or issue name");
         issueService.saveIssue(issue);
         return "ok";
     }
