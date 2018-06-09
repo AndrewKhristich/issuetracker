@@ -1,6 +1,7 @@
 package com.axmor.utils;
 
 import com.axmor.Main;
+import com.axmor.dao.impl.UserDaoImpl;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DataSource {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DataSource.class);
 
     private static final String DB_DRIVER = "org.h2.Driver";
     private static final String DB_URL = "jdbc:h2:~/test";
@@ -38,24 +41,24 @@ public class DataSource {
         ds = new HikariDataSource(config);
     }
 
-    public static void createAllTables(String queryPath){
+    public static void createAllTables(String queryPath) {
         StringBuilder query = null;
-        try(FileReader createQueryScript = new FileReader(queryPath);
-        BufferedReader reader = new BufferedReader(createQueryScript) ) {
-             query = new StringBuilder();
+        try (FileReader createQueryScript = new FileReader(queryPath);
+             BufferedReader reader = new BufferedReader(createQueryScript)) {
+            query = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 query.append(line);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("CREATING TABLES FAIL : ", e);
         }
 
-        try(Connection connection = getConnection();
-            PreparedStatement prepStmt = connection.prepareStatement(String.valueOf(query))) {
+        try (Connection connection = getConnection();
+             PreparedStatement prepStmt = connection.prepareStatement(String.valueOf(query))) {
             prepStmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("CONNECTION FAIL : ", e);
         }
     }
 
