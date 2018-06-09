@@ -53,7 +53,7 @@ public class UserController {
         User userByName = userService.findUser(user.getName());
         if (user.equals(userByName)) {
             request.session().attribute("logged", user.getName());
-            response.redirect(Path.Web.ARTICLES);
+            response.redirect(Path.Web.ISSUES);
             return new Gson().toJson("Logged in");
         } else {
             throw new UserNotFoundException("Wrong user name or password");

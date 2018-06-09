@@ -15,7 +15,7 @@
 <h1>Issue Tracker</h1>
 <input id="search-input" placeholder="Enter key word of issue to search">
 <button type="button" id="search-button" onclick="searchFunction()">Search</button>
-<a href="/articles">
+<a href="/issues">
     <button>Reset Filters</button>
 </a>
 <br/>
@@ -25,14 +25,14 @@
 </div>
 
 <br/>
-<div th:each="article : ${articleList}">
-    <a th:href="@{'articles/art?id=' + ${article.id}}" th:text="${article.articleName}"></a>
-    <label th:text="${article.status}"/>
-    <label th:text="${article.date}"/><br/>
+<div th:each="issue : ${issuesList}">
+    <a th:href="@{'issues/art?id=' + ${issue.id}}" th:text="${issue.issueName}"></a>
+    <label th:text="${issue.status}"/>
+    <label th:text="${issue.date}"/><br/>
 </div>
 <br/>
-<a href="/articles/new">
-    <button>Add Article</button>
+<a href="/issues/new">
+    <button>Add Issue</button>
 </a>
 </body>
 
@@ -41,12 +41,12 @@
         var search = $("#search-input").val();
         if (search === "") {
             alert("Enter search key word")
-        } else window.location.replace("/articles?search=" + search);
+        } else window.location.replace("/issues?search=" + search);
     }
 </script>
 <script>
     function getMyIssues() {
-        window.location.replace("/articles?my=true");
+        window.location.replace("/issues?my=true");
     }
 </script>
 </html>

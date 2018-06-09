@@ -1,20 +1,18 @@
 package com.axmor;
 
-import com.axmor.controller.ArticleController;
+import com.axmor.controller.IssueController;
 import com.axmor.controller.CommentController;
 import com.axmor.controller.UserController;
 import com.axmor.controller.WebController;
-import com.axmor.dao.impl.ArticleDaoImpl;
+import com.axmor.dao.impl.IssueDaoImpl;
 import com.axmor.dao.impl.CommentDaoImpl;
 import com.axmor.dao.impl.UserDaoImpl;
-import com.axmor.exception.ArticleNotFoundException;
+import com.axmor.exception.IssueNotFoundException;
 import com.axmor.exception.UserAlreadyExistException;
 import com.axmor.exception.UserNotFoundException;
-import com.axmor.service.impl.ArticleServiceImpl;
+import com.axmor.service.impl.IssueServiceImpl;
 import com.axmor.service.impl.UserServiceImpl;
-import com.axmor.utils.DataBaseUtil;
-import com.axmor.utils.Path;
-import com.axmor.utils.ThymeleafTemplateEngine;
+import com.axmor.utils.*;
 import spark.Spark;
 
 import java.util.logging.Logger;
@@ -25,22 +23,22 @@ import static spark.Spark.*;
  * Application entry point
  */
 public class Main {
-    public static final DataBaseUtil dataBaseUtil = new DataBaseUtil();
+//    public static final DataSource dataBaseUtil = DataSource.getConnection();
     public static final ThymeleafTemplateEngine engine = new ThymeleafTemplateEngine();
     public static final Logger logger = Logger.getGlobal();
     public static UserController userController;
-    public static ArticleController controller;
+    public static IssueController controller;
     public static CommentController commentController;
     public static WebController webController;
 
     public static void main(String[] args) {
         String queryPath = "src\\main\\resources\\public\\sql\\create_tables";
 
-        dataBaseUtil.createAllTables(queryPath);
+        DataSource.createAllTables(queryPath);
 
-        controller = new ArticleController(new ArticleServiceImpl(new ArticleDaoImpl(dataBaseUtil)));
-        commentController = new CommentController(new CommentDaoImpl(dataBaseUtil));
-        userController = new UserController(new UserServiceImpl(new UserDaoImpl(dataBaseUtil)));
+        controller = new IssueController(new IssueServiceImpl(new IssueDaoImpl()));
+        commentController = new CommentController(new CommentDaoImpl());
+        userController = new UserController(new UserServiceImpl(new UserDaoImpl()));
         webController = new WebController();
 
         port(80);
@@ -52,22 +50,22 @@ public class Main {
             return "{\"message\":\"Resource Not Found\"}";
         });
 
-        Spark.before(Path.Web.ARTICLES + "/*",     userController::checkUser);
-        Spark.before(Path.Web.ARTICLES,                 userController::checkUser);
+        Spark.before(Path.Web.ISSUES + "/*",     userController::checkUser);
+        Spark.before(Path.Web.ISSUES,                 userController::checkUser);
 
-        Spark.get(Path.Web.ARTICLES,                    controller.getAllArticles);
-        Spark.get(Path.Web.ONE_ARTICLE,                 controller.getArticle);
-        Spark.get(Path.Web.COMMENTS,                    commentController.getAllCommentsByArticle);
+        Spark.get(Path.Web.ISSUES,                    controller.getAllIssues);
+        Spark.get(Path.Web.ONE_ISSUE,                 controller.getIssue);
+        Spark.get(Path.Web.COMMENTS,                    commentController.getAllCommentsByIssue);
         Spark.get(Path.Web.LOGOUT,                      userController.logout);
         Spark.get(Path.Web.LOGIN,                       userController.loginPage);
         Spark.get(Path.Web.REGISTRATION,                userController.registrationPage);
-        Spark.get(Path.Web.NEW_ARTICLE,                 controller.newArticlePage);
+        Spark.get(Path.Web.NEW_ISSUE,                   controller.newIssuePage);
         Spark.get(Path.Web.INDEX,                       webController.welcome);
 
         Spark.post(Path.Web.REGISTRATION_SAVE,          userController.saveUser);
         Spark.post(Path.Web.LOGIN,                      userController.userAuth);
         Spark.post(Path.Web.COMMENTS,                   commentController.saveComment);
-        Spark.post(Path.Web.NEW_ARTICLE,                controller::createArticle);
+        Spark.post(Path.Web.NEW_ISSUE,                  controller::createIssue);
 
         Spark.exception(UserNotFoundException.class, (exception, request, response) -> {
             response.status(400);
@@ -77,7 +75,7 @@ public class Main {
             response.status(400);
             response.body(exception.getMessage());
         });
-        Spark.exception(ArticleNotFoundException.class, (exception, request, response) -> {
+        Spark.exception(IssueNotFoundException.class, (exception, request, response) -> {
             response.status(400);
             response.body(exception.getMessage());
         });

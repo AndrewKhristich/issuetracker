@@ -4,17 +4,13 @@ import com.axmor.Main;
 import com.axmor.dao.CommentDao;
 import com.axmor.model.Comment;
 import com.axmor.utils.Path;
-import com.axmor.utils.ThymeleafTemplateEngine;
 import com.google.gson.Gson;
 import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
 import spark.Route;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 public class CommentController {
 
@@ -32,12 +28,12 @@ public class CommentController {
         return "ok";
     };
 
-    public Route getAllCommentsByArticle = (request, response) -> {
+    public Route getAllCommentsByIssue = (request, response) -> {
         Map<String, Object> map = new HashMap<>();
-        Long id = Long.valueOf(request.queryParams("article"));
-        List<Comment> allCommentsByArticleId = commentDao.findAllCommentsByArticleId(id);
-        map.put("comments", allCommentsByArticleId);
+        Long id = Long.valueOf(request.queryParams("issue"));
+        List<Comment> allCommentsByIssueId = commentDao.findAllCommentsByIssueId(id);
+        map.put("comments", allCommentsByIssueId);
         map.put("art_id", id);
-        return Main.engine.render(new ModelAndView(map, Path.Templates.ARTICLE_COMMENTS_PAGE));
+        return Main.engine.render(new ModelAndView(map, Path.Templates.ISSUE_COMMENTS_PAGE));
     };
 }

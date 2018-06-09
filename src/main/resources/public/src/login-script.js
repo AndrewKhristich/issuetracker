@@ -24,7 +24,7 @@ function sentUserData(json, url) {
         contentType: "application/json",
         data: json,
         success: function () {
-            window.location.replace("/articles");
+            window.location.replace("/issues");
         },
         error: function (result) {
             alert("Registration error! status :  " + result.status + " "

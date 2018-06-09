@@ -7,11 +7,12 @@ CREATE TABLE user(
 INSERT INTO USER(NAME, PASSWORD) VALUES ('First', 'password');
 INSERT INTO USER(NAME, PASSWORD) VALUES ('Second', 'password');
 
+DROP TABLE issue IF EXISTS;
 DROP TABLE article IF EXISTS;
 
-CREATE TABLE article(
+CREATE TABLE issue(
   id bigint primary key auto_increment,
-  article_name varchar(50) not null,
+  issue_name varchar(50) not null,
   description varchar(255),
   status varchar not null,
   author varchar not null,
@@ -20,27 +21,27 @@ CREATE TABLE article(
   references user(name)
 );
 
-INSERT INTO ARTICLE(id, article_name, description, status, author, date) VALUES (1, 'first article', 'this is FIRST article', 'Created', 'Second', NOW());
-INSERT INTO ARTICLE(id, article_name, description, status, author, date) VALUES (2, 'second article', 'this is SECOND article', 'Closed', 'Second', NOW());
-INSERT INTO ARTICLE(id, article_name, description, status, author, date) VALUES (3, 'third article', 'this is THIRD article', 'Resolved', 'First', NOW());
+INSERT INTO ISSUE(id, issue_name, description, status, author, date) VALUES (1, 'first issue', 'this is FIRST issue', 'Created', 'Second', NOW());
+INSERT INTO ISSUE(id, issue_name, description, status, author, date) VALUES (2, 'second issue', 'this is SECOND issue', 'Closed', 'Second', NOW());
+INSERT INTO ISSUE(id, issue_name, description, status, author, date) VALUES (3, 'third issue', 'this is THIRD issue', 'Resolved', 'First', NOW());
 
 DROP TABLE comment IF EXISTS;
 
 CREATE TABLE comment(
   id integer primary key auto_increment,
   username varchar not null,
-  article_id varchar(50) not null,
+  issue_id varchar(50) not null,
   comment_description varchar not null,
   published_date TIMESTAMP not null,
   status varchar,
 
   CONSTRAINT FK_UserName foreign key (username)
   references user(name),
-  CONSTRAINT FK_ArticleId foreign key (article_id)
-  references article(id)
+  CONSTRAINT FK_IssueId foreign key (issue_id)
+  references issue(id)
 );
 
-INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 1, 'I have no solution', NOW());
-INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 2, 'I have an idea', NOW());
-INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 2, 'I have another an idea', NOW());
-INSERT INTO COMMENT(USERNAME, ARTICLE_ID, COMMENT_DESCRIPTION, published_date) VALUES('Second', 3, 'Try this', NOW());
+INSERT INTO COMMENT(USERNAME, Issue_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 1, 'I have no solution', NOW());
+INSERT INTO COMMENT(USERNAME, Issue_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 2, 'I have an idea', NOW());
+INSERT INTO COMMENT(USERNAME, Issue_ID, COMMENT_DESCRIPTION, published_date) VALUES('First', 2, 'I have another an idea', NOW());
+INSERT INTO COMMENT(USERNAME, Issue_ID, COMMENT_DESCRIPTION, published_date) VALUES('Second', 3, 'Try this', NOW());

@@ -3,14 +3,13 @@ package com.axmor.model;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Data
 public class Comment {
 
     private Long id;
     private String userName;
-    private Long articleId;
+    private Long issueId;
     private String commentDescription;
     private String status;
     private Timestamp date;
@@ -24,7 +23,7 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", articleId=" + articleId +
+                ", issueId=" + issueId +
                 ", commentDescription='" + commentDescription + '\'' +
                 '}';
     }

@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="/src/new-article.js"></script>
-    <title>Create Article</title>
+    <script src="/src/new-issue.js"></script>
+    <title>Create Issue</title>
 </head>
 <body>
 <div>
     <a href="/logout">Logout</a> <label style="color: white"></label>
     <a href="/registration">Registration</a>
 </div>
-    <form id="article-form">
+    <form id="issue-form">
         Username : <label id="username" th:text="${user}"></label> <br/>
-        Article name : <input id="article-name" placeholder="Enter article name"/><br/>
+        Issue name : <input id="issue-name" placeholder="Enter issue name"/><br/>
         <textarea id="description" style="width: 394px; resize: none"></textarea> <br/>
-        <button type="submit">Create Article</button>
+        <button type="submit">Create Issue</button>
     </form>
 
 </body>

@@ -1,15 +1,12 @@
 package issuetracker.dao;
 
-import com.axmor.dao.ArticleDao;
+import com.axmor.dao.IssueDao;
 import com.axmor.dao.CommentDao;
-import com.axmor.dao.UserDao;
-import com.axmor.dao.impl.ArticleDaoImpl;
+import com.axmor.dao.impl.IssueDaoImpl;
 import com.axmor.dao.impl.CommentDaoImpl;
-import com.axmor.dao.impl.UserDaoImpl;
-import com.axmor.model.Article;
+import com.axmor.model.Issue;
 import com.axmor.model.Comment;
-import com.axmor.utils.DataBaseInterface;
-import issuetracker.DataBaseTestUtil;
+import com.axmor.utils.DataSource;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,41 +18,39 @@ import static junit.framework.TestCase.assertEquals;
 public class CommentDaoTest {
 
     private final String queryPath = "src\\main\\resources\\public\\sql\\create_tables";
-    private DataBaseInterface dataBaseUtil;
     private CommentDao commentDao;
 
     @Before
     public void initDB(){
-        dataBaseUtil = new DataBaseTestUtil();
-        commentDao = new CommentDaoImpl(dataBaseUtil);
-        dataBaseUtil.createAllTables(queryPath);
+        commentDao = new CommentDaoImpl();
+        DataSource.createAllTables(queryPath);
     }
 
     @Test
     public void findAllCommentsByArticleIdTest(){
         Long id = 2l;
-        List<Comment> comments = commentDao.findAllCommentsByArticleId(id);
+        List<Comment> comments = commentDao.findAllCommentsByIssueId(id);
         assertEquals(2, comments.size());
         for (Comment comment : comments){
-            assertEquals(id, comment.getArticleId());
+            assertEquals(id, comment.getIssueId());
         }
     }
 
     @Test
     public void saveCommentTest(){
-        ArticleDao articleDao = new ArticleDaoImpl(dataBaseUtil);
+        IssueDao issueDao = new IssueDaoImpl();
         Comment comment = new Comment();
         comment.setUserName("First");
         Long articleId = 2l;
-        comment.setArticleId(articleId);
+        comment.setIssueId(articleId);
         comment.setCommentDescription("AAAAA");
         String resolved = "Resolved";
         comment.setStatus(resolved);
         commentDao.saveComment(comment);
-        List<Comment> allCommentsByArticleId = commentDao.findAllCommentsByArticleId(articleId);
+        List<Comment> allCommentsByArticleId = commentDao.findAllCommentsByIssueId(articleId);
         assertEquals(3, allCommentsByArticleId.size());
-        Article articleById = articleDao.findArticleById(articleId);
-        assertEquals(resolved, articleById.getStatus());
+        Issue issueById = issueDao.findIssuesById(articleId);
+        assertEquals(resolved, issueById.getStatus());
     }
 }
 

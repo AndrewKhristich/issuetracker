@@ -7,7 +7,7 @@ $(document).ready(function () {
         var commentDescription = $("#commentDescription").val();
         var userDTO = {
             userName : current_user,
-            articleId : urlParameter,
+            issueId : urlParameter,
             commentDescription : commentDescription,
             status : selection
         };
@@ -26,11 +26,11 @@ $(document).ready(function () {
     function sentUserData(json) {
         $.ajax({
             type: "POST",
-            url: "/articles/comment",
+            url: "/issues/comment",
             contentType: "application/json",
             data: json,
             success: function () {
-                window.location.replace("/articles/art?id=" + urlParameter);
+                window.location.replace("/issues/art?id=" + urlParameter);
             },
             error: function () {
                 alert("Some error");

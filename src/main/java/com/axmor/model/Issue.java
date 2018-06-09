@@ -2,18 +2,14 @@ package com.axmor.model;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 @Data
-public class Article {
+public class Issue {
 
     private Long id;
     private String status;
-    private String articleName;
+    private String issueName;
     private String description;
     private Date date;
     private String username;
@@ -21,10 +17,10 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Article{" +
+        return "Issue{" +
                 "id=" + id +
                 ", status=" + status +
-                ", articleName='" + articleName + '\'' +
+                ", issueName='" + issueName + '\'' +
                 ", description='" + description + '\'' +
                 ", username='" + username + '\'' +
                 '}';

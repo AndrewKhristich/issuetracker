@@ -1,16 +1,16 @@
 $(document).ready(function () {
-    $("#article-form").submit(function (event) {
+    $("#issue-form").submit(function (event) {
         var username = $("#username").text();
         var description = $("#description").val();
-        var articleName = $("#article-name").val();
+        var issueName = $("#issue-name").val();
         var userDTO = {
-            articleName: articleName,
+            issueName: issueName,
             description: description,
             username: username
         };
         var resultJson = JSON.stringify(userDTO);
-        if (articleName !== "" && description !== "") {
-            sentUserData(resultJson, "/articles/new");
+        if (issueName !== "" && description !== "") {
+            sentUserData(resultJson, "/issues/new");
             event.preventDefault();
         } else {
             alert("Both fields must be required");
@@ -25,10 +25,10 @@ $(document).ready(function () {
             contentType: "application/json",
             data: json,
             success: function () {
-                window.location.replace("/articles");
+                window.location.replace("/issues");
             },
             error: function (result) {
-                alert("Article creation error! \n " +
+                alert("Issue creation error! \n " +
                     "status :  " + result.status + " "
                     + result.statusText + "\n" +
                     "Messege : " + result.responseText);

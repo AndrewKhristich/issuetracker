@@ -7,7 +7,7 @@
     <script src="/src/create-comment.js"></script>
     <script>
         $(function () {
-            $("#comment-list").load("/articles/comment?article=" + getUrlParameter("id"));
+            $("#comment-list").load("/issues/comment?issue=" + getUrlParameter("id"));
         });
         function getUrlParameter(sParam) {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -33,11 +33,11 @@
     <a href="/registration">Registration</a>
 </div>
 <div>
-    <label> Status : </label><label th:text="${article.status}"/> <br/>
-    <label>Start Date : </label><label th:text="${article.date}"/> <br/>
-    <label> Author : </label><label th:text="${article.username}"/> <br/>
+    <label> Status : </label><label th:text="${issue.status}"/> <br/>
+    <label>Start Date : </label><label th:text="${issue.date}"/> <br/>
+    <label> Author : </label><label th:text="${issue.username}"/> <br/>
     <label> Description </label> <br>
-    <label style="font-weight: bold" th:text="${article.description}"/>
+    <label style="font-weight: bold" th:text="${issue.description}"/>
 </div>
 <div id="comment-list"></div>
 <br/>

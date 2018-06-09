@@ -3,8 +3,7 @@ package issuetracker.dao;
 import com.axmor.dao.UserDao;
 import com.axmor.dao.impl.UserDaoImpl;
 import com.axmor.model.User;
-import com.axmor.utils.DataBaseInterface;
-import issuetracker.DataBaseTestUtil;
+import com.axmor.utils.DataSource;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,14 +12,12 @@ import static org.junit.Assert.assertEquals;
 public class UserDaoTest {
 
     private final String queryPath = "src\\main\\resources\\public\\sql\\create_tables";
-    DataBaseInterface dataBaseUtil;
     private UserDao userDao;
 
     @Before
     public void initDB(){
-        dataBaseUtil = new DataBaseTestUtil();
-        userDao = new UserDaoImpl(dataBaseUtil);
-        dataBaseUtil.createAllTables(queryPath);
+        userDao = new UserDaoImpl();
+        DataSource.createAllTables(queryPath);
     }
 
     @Test

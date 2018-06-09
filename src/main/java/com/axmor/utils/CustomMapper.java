@@ -1,13 +1,12 @@
 package com.axmor.utils;
 
-import com.axmor.model.Article;
+import com.axmor.model.Issue;
 import com.axmor.model.Comment;
 import com.axmor.model.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
 /**
  * Custom mapper from ResultSet to model class
  */
@@ -15,17 +14,17 @@ public class CustomMapper {
 
     /**
      * @param set ResultSet
-     * @return Article object
+     * @return Issue object
      */
-    public static Article mapArticleFromResultSet(ResultSet set) throws SQLException {
-        Article article = new Article();
-        article.setId(set.getLong("id"));
-        article.setStatus(set.getString("status"));
-        article.setArticleName(set.getString("article_name"));
-        article.setDescription(set.getString("description"));
-        article.setUsername(set.getString("author"));
-        article.setDate(set.getDate("date"));
-        return article;
+    public static Issue mapIssueFromResultSet(ResultSet set) throws SQLException {
+        Issue issue = new Issue();
+        issue.setId(set.getLong("id"));
+        issue.setStatus(set.getString("status"));
+        issue.setIssueName(set.getString("issue_name"));
+        issue.setDescription(set.getString("description"));
+        issue.setUsername(set.getString("author"));
+        issue.setDate(set.getDate("date"));
+        return issue;
     }
 
     /**
@@ -46,7 +45,7 @@ public class CustomMapper {
     public static Comment mapCommentFromResultSet(ResultSet set) throws SQLException {
         Comment comment = new Comment();
         comment.setId(set.getLong("id"));
-        comment.setArticleId(set.getLong("article_id"));
+        comment.setIssueId(set.getLong("issue_id"));
         comment.setUserName(set.getString("username"));
         comment.setCommentDescription(set.getString("comment_description"));
         comment.setDate(set.getTimestamp("PUBLISHED_DATE"));
