@@ -52,6 +52,7 @@ public class Main {
 
         Spark.before(Path.Web.ISSUES + "/*",     userController::checkUser);
         Spark.before(Path.Web.ISSUES,                 userController::checkUser);
+        Spark.before("/",                        webController::welcome);
 
         Spark.get(Path.Web.ISSUES,                    controller.getAllIssues);
         Spark.get(Path.Web.ONE_ISSUE,                 controller.getIssue);
@@ -60,7 +61,6 @@ public class Main {
         Spark.get(Path.Web.LOGIN,                     userController.loginPage);
         Spark.get(Path.Web.REGISTRATION,              userController.registrationPage);
         Spark.get(Path.Web.NEW_ISSUE,                 controller.newIssuePage);
-        Spark.get(Path.Web.INDEX,                     webController.welcome);
 
         Spark.post(Path.Web.REGISTRATION_SAVE,        userController.saveUser);
         Spark.post(Path.Web.LOGIN,                    userController.userAuth);
