@@ -31,7 +31,7 @@ CREATE TABLE comment(
   id integer primary key auto_increment,
   username varchar not null,
   issue_id varchar(50) not null,
-  comment_description varchar not null,
+  comment_description varchar(100) not null,
   published_date TIMESTAMP not null,
   status varchar,
 

@@ -2,38 +2,52 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+          crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
     <title>Title</title>
 </head>
 <body>
-<div>
-    <a href="/logout">Logout</a> <label style="color: white"></label>
-    <a href="/registration">Registration</a>
+<div class="container col-sm-6">
+  <div class="col-sm-12 text-rigth">
+      <a href="/logout">
+          <button type="button" class="form-control btn btn-link">Logout</button>
+      </a>
+  </div>
+    <h1>Issue Tracker</h1>
+    <input class="col-sm-7" id="search-input" placeholder="Enter key word of issue to search">
+    <div class="col-sm-7 text-right">
+      <br/>
+      <button id="my-issue-button" type="button" class="btn btn-info text-right" onclick="getMyIssues()">Show My Issues</button>
+      <button type="button" class="btn btn-info" id="search-button" onclick="searchFunction()">Search</button>
+      <a href="/issues">
+          <button type="button" class="btn btn-info">Reset Filters</button>
+      </a>
+    </div>
+    <br/>
+    <div class="col-sm-7" th:each="issue : ${issuesList}">
+      <div class="row">
+        <label class="control-label col-sm-6" th:text="${issue.status}"></label>
+        <label class="control-label col-sm-6 text-right" th:text="${issue.date}"></label>
+      </div>
+      <div class="border-bottom">
+        <a th:href="@{'issues/art?id=' + ${issue.id}}" th:text="${issue.issueName}"></a>
+      </div>
+    </div>
+    <!-- <div class="col-sm-7" th:each="issue : ${issuesList}">
+        <a th:href="@{'issues/art?id=' + ${issue.id}}" th:text="${issue.issueName}"></a>
+        <label th:text="${issue.status}"/>
+        <label th:text="${issue.date}"/><br/>
+    </div> -->
+    <br/>
+    <div>
+      <a href="/issues/new">
+          <button type="button" class="btn btn-info">Add Issue</button>
+      </a>
+    </div>
 </div>
-<h1>Issue Tracker</h1>
-<input id="search-input" placeholder="Enter key word of issue to search">
-<button type="button" id="search-button" onclick="searchFunction()">Search</button>
-<a href="/issues">
-    <button>Reset Filters</button>
-</a>
-<br/>
-<br/>
-<div id="my-issue-button">
-    <button onclick="getMyIssues()">Show My Issues</button>
-</div>
-
-<br/>
-<div th:each="issue : ${issuesList}">
-    <a th:href="@{'issues/art?id=' + ${issue.id}}" th:text="${issue.issueName}"></a>
-    <label th:text="${issue.status}"/>
-    <label th:text="${issue.date}"/><br/>
-</div>
-<br/>
-<a href="/issues/new">
-    <button>Add Issue</button>
-</a>
 </body>
 
 <script>

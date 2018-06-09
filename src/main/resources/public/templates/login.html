@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta />
+
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+    integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
     <script src="/src/login-script.js"></script>
     <script>$(document).ready(function () {
         $("#log-form").submit(function(event){
@@ -14,10 +19,40 @@
     </script>
 </head>
 <body>
-<form id="log-form">
-    <input id="username" placeholder="User Name"/>
-    <input id="password" placeholder="User Pass" type="password"/>
-    <button type="submit">Login</button>
-</form>
+  <div class="container col-sm-6">
+    <h1>Sign in</h1>
+      <form class="form-horizontal" id="log-form">
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <label class="control-label">User name :</label>
+          </div>
+          <div class="col-sm-5">
+            <input class="form-control" id="username" placeholder="User Name"></input>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <label class="control-label">Password :</label>
+          </div>
+          <div class="col-sm-5">
+            <input class="form-control" id="password" placeholder="User Pass" type="password"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-success">Login</button>
+          </div>
+          <div class="col-sm-3">
+          </div>
+          <div class="col-sm-2">
+            <a href="/registration"><button type="button" class="form-control btn btn-link">Registration</button></a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+
+
 </body>
 </html>

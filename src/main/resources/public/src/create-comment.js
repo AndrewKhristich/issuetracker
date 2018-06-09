@@ -32,8 +32,10 @@ $(document).ready(function () {
             success: function () {
                 window.location.replace("/issues/art?id=" + urlParameter);
             },
-            error: function () {
-                alert("Some error");
+            error: function (result) {
+                alert("Registration error! status :  " + result.status + " "
+                    + result.statusText +
+                    " ... Messege : " + result.responseText);
             }
 
         });
