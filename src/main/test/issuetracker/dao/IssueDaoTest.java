@@ -24,13 +24,13 @@ public class IssueDaoTest {
     }
 
     @Test
-    public void findAllArticlesTest(){
+    public void findAllIssuesTest(){
         List<Issue> allIssues = issueDao.findAllIssues();
         assertEquals(3, allIssues.size());
     }
 
     @Test
-    public void findAuthentificatedUserArticles(){
+    public void findAuthentificatedUserIssues(){
         String name = "Second";
         List<Issue> authentificatedUserIssues = issueDao.findAuthentificatedUserIssues(name);
         assertEquals(2, authentificatedUserIssues.size());
@@ -40,7 +40,7 @@ public class IssueDaoTest {
     }
 
     @Test
-    public void findArticlesByNameTest(){
+    public void findIssuesByNameTest(){
         String search = "first";
         String searchAll = "issue";
 
@@ -52,7 +52,7 @@ public class IssueDaoTest {
     }
 
     @Test
-    public void findArticleByIdTest(){
+    public void findIssuesByIdTest(){
         Long id = 2L;
         Issue issueById = issueDao.findIssuesById(id);
         assertNotNull(issueById);
@@ -60,7 +60,7 @@ public class IssueDaoTest {
     }
 
     @Test
-    public void saveArticleTest(){
+    public void saveIssueTest(){
         Issue issue = new Issue();
         issue.setUsername("First");
         issue.setDescription("AAAAAAA");

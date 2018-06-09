@@ -27,7 +27,7 @@ public class CommentDaoTest {
     }
 
     @Test
-    public void findAllCommentsByArticleIdTest(){
+    public void findAllCommentsByIssueIdTest(){
         Long id = 2l;
         List<Comment> comments = commentDao.findAllCommentsByIssueId(id);
         assertEquals(2, comments.size());

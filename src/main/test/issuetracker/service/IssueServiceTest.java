@@ -34,22 +34,22 @@ public class IssueServiceTest {
     }
 
     @Test
-    public void findAllArticlesTest(){
+    public void findAllIssuesTest(){
         List<Issue> allIssues = service.findAllIssues();
         assertEquals(3, allIssues.size());
     }
 
     @Test
-    public void findAllArticlesByNameTest(){
-        String articleName = "issue";
-        List<Issue> allArticlesByName = service.findAllIssuesByName(articleName);
-        assertEquals(3, allArticlesByName.size());
+    public void findAllIssuesByNameTest(){
+        String issueName = "issue";
+        List<Issue> allIssuesByName = service.findAllIssuesByName(issueName);
+        assertEquals(3, allIssuesByName.size());
         List<Issue> first = service.findAllIssuesByName("first");
         assertEquals(1, first.size());
     }
 
     @Test
-    public void findArticleByIdTest(){
+    public void findIssuesByIdTest(){
         thrown.expect(IssueNotFoundException.class);
         Long notRealId = 5L;
         service.findIssuesById(notRealId);
@@ -59,7 +59,7 @@ public class IssueServiceTest {
     }
 
     @Test
-    public void saveArticleTest(){
+    public void saveIssueTest(){
         Issue issue = new Issue();
         issue.setUsername("First");
         issue.setDescription("AAA");
@@ -73,7 +73,7 @@ public class IssueServiceTest {
     }
 
     @Test
-    public void findAuthentificatedUserArticlesTest(){
+    public void findAuthentificatedUserIssuesTest(){
         String name = "Second";
         List<Issue> authentificatedUserIssues = service.findAuthentificatedUserIssue(name);
         assertEquals(2, authentificatedUserIssues.size());
