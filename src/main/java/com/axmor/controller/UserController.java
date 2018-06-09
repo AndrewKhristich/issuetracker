@@ -1,6 +1,7 @@
 package com.axmor.controller;
 
 import com.axmor.Main;
+import com.axmor.exception.LargeValueException;
 import com.axmor.exception.UserNotFoundException;
 import com.axmor.model.User;
 import com.axmor.service.UserService;
@@ -50,7 +51,11 @@ public class UserController {
 
     public Route saveUser = (request, response) -> {
         User user = new Gson().fromJson(request.body(), User.class);
-        userService.saveUser(user.getName(), user.getPassword());
+        String name = user.getName();
+        String password = user.getPassword();
+        if (name.length()>20) throw new LargeValueException("User name cannot be longer then 20 letters");
+        if (password.length()>20) throw new LargeValueException("User password cannot be longer then 20 letters");
+        userService.saveUser(name, password);
         return new Gson().toJson("Success");
     };
 
